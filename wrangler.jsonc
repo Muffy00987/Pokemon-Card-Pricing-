@@ -1,5 +1,6 @@
 {
-  "name": "pokemon-tcg-free-bargain-finder",
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pokemon-card-pricing",
   "main": "src/worker.js",
   "compatibility_date": "2026-09-14",
   "assets": {

@@ -1,62 +1,59 @@
-# Pokémon TCG Free Live Graded Bargain Finder
+# Pokémon TCG Graded Bargain Finder — audited rebuild
 
-This build keeps the front end and the live-price backend free to run.
+A Cloudflare Worker + static web app that compares recent raw Pokémon TCG sold listings with recent PSA, BGS/Beckett, CGC and TAG grade 7+ sold listings using The Card API.
 
-## What it uses
+## What changed in this rebuild
 
-- **Cloudflare Workers Free** for hosting + the private backend proxy.
-- **The Card API Free** for recent sold-card comps.
-- The API key is stored as a **Cloudflare Worker secret**, never in the HTML/browser.
-- The page starts with **363 English-focused Pokémon TCG watchlist entries** and lets you add more locally.
-- Compares recent raw sold comps against **PSA, BGS/Beckett, CGC, and TAG** sales from grade 7 upward.
+- **Real authentication diagnostic.** `Test API + backend` makes a tiny authenticated request to The Card API. It does not merely check that a secret variable exists.
+- **Actionable errors.** Upstream HTTP status/message is preserved. Batch scans stop immediately on fatal auth/plan/quota errors (401/403/429).
+- **Variant-preserving queries.** Alternate Art, Gold, Holo, Special Illustration Rare, Staff, Full Art, etc. are no longer stripped from card identity.
+- **Card-number support.** Seed entries that already include `#123`, `#TG20`, etc. are automatically recognized; any card can be corrected through the Identity button.
+- **Targeted deep scans.** One raw query plus one query each for PSA/BGS/CGC/TAG. Default maximum requested rows per card: 52 (12 raw + 10 × 4 graders).
+- **Evidence filtering.** Listing titles receive an identity-match score. Obvious lots/bundles/proxies and explicitly lower-condition raw listings are excluded from the comparison.
+- **Raw-condition transparency.** The UI distinguishes explicitly Near Mint/Mint evidence from unknown raw condition instead of claiming every raw sale is NM.
+- **Confidence score.** Bargains are marked High / Medium / Low-thin based on comp counts, title-match quality, card number, and raw-condition evidence.
+- **Underlying sold listings.** Evidence panels include the sold listings used for the raw median and best slab grade.
+- **Daily quota awareness.** Rate-limit headers are surfaced in the UI, plus a user-controlled reserve that can stop a batch before its worst-case size would cross the reserve.
+- **No persistent storage of API responses.** Live API results use `sessionStorage`, and the Worker sends `Cache-Control: no-store`. This is intentional because The Card API's current Free terms allow query results to be held in memory for the duration of a user session but do not permit persistent local storage of Free-tier API responses.
 
-## Why this stays inside the free data allowance
+## Deploy / update
 
-The worker requests at most **3 raw rows + 10 graded rows per card = 13 sales rows/card**.
-For the seeded 363-card list, a full uncached pass can return at most **4,719 rows**, which is below The Card API's current free allowance of 5,000 sales rows/day. Results are cached for about 20 hours, so repeat visitors do not automatically burn the quota again.
+Repository layout must remain:
 
-The free The Card API tier has a **3-day lookback**, so cards with low sales volume may show no recent comps. That is a data limitation, not a page error.
+```
+README.md
+wrangler.jsonc
+public/
+  index.html
+  seed.json
+src/
+  worker.js
+```
 
-## Setup — free
+Cloudflare runtime secret (not build secret):
 
-1. Go to **https://www.thecardapi.com/** and create a free API key. Do not paste the key into the HTML.
-2. Create a free Cloudflare account at **https://dash.cloudflare.com/**.
-3. Install Node.js if you do not already have it, then open a terminal in this folder.
-4. Run:
+```
+THE_CARD_API_KEY
+```
 
-   ```bash
-   npm install -g wrangler
-   wrangler login
-   wrangler secret put THE_CARD_API_KEY
-   ```
+The Worker reads that secret server-side and sends it to The Card API using the documented REST header `x-market-api-key`.
 
-   Paste your new The Card API key when Wrangler asks for it.
+## First verification after deployment
 
-5. Deploy:
+1. Open the live site.
+2. Click **Test API + backend**.
+3. Do not scan cards until the message says the Worker is reachable, the runtime secret is present, and The Card API accepted the key.
+4. Deep scan **one card** first.
+5. Open **Evidence** and verify the sold listing titles match the intended card/variant before scaling up.
 
-   ```bash
-   wrangler deploy
-   ```
+## Free-tier constraints that affect accuracy
 
-6. Wrangler will print a `*.workers.dev` URL. Open it in Chrome.
-7. Click **Test live data**. It should say the backend is working and the secret is configured.
+At the time this rebuild was made, The Card API Free plan publishes a **5,000 sales-row/day** limit and a **3-day rolling lookback**. Low-volume cards and uncommon grader/grade combinations may therefore have no recent evidence. The site treats that as “no recent comps,” not as an application error.
 
-## Important security note
+Raw eBay condition is not present on every record. The app excludes titles that explicitly look LP/MP/HP/damaged, but unknown condition remains possible and lowers confidence.
 
-Any API key that was shown in a screenshot or pasted into a public page should be revoked and replaced. This package never exposes the new key to the browser.
+TAG is queried through the REST `grader` filter. Sparse TAG Pokémon sales in a 3-day window are expected.
 
-## How live updating works
+## Data-storage note
 
-- **↻** updates one card.
-- **Update visible** refreshes the current page of 25 cards.
-- **Select all** selects every card matching your current search/filter.
-- **Update selected** refreshes selected cards.
-- Cached values are reused for about 20 hours.
-- Grade details show every recent grade 7+ comp found for PSA, BGS, CGC and TAG.
-
-## Files
-
-- `public/index.html` — app interface.
-- `public/seed.json` — starting 363-card watchlist.
-- `src/worker.js` — secure API proxy + price aggregation + cache.
-- `wrangler.jsonc` — Cloudflare Worker configuration.
+Live responses are deliberately not stored in `localStorage`, a Cloudflare cache, KV, D1, or other persistent storage in this Free configuration. Only user-created card metadata, identity corrections, selections, and budget preferences are persisted locally.
