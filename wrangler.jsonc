@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "pokemon-card-pricing",
-  "main": "src/clean-worker.js",
+  "main": "src/clean-worker-v2.js",
   "compatibility_date": "2026-09-14",
   "assets": {
     "directory": "./public",
