@@ -120,6 +120,8 @@
     dialog.showModal();
   }
 
+  window.openCardDetails = openCardDetails;
+
   const style = document.createElement('style');
   style.textContent = `
     .card-cell{display:flex;gap:10px;align-items:flex-start}.card-thumb-btn{border:0;padding:0;background:transparent;border-radius:7px;cursor:pointer}.card-thumb{width:58px;height:80px;object-fit:contain;border-radius:7px;background:#080b13;border:1px solid #2b3550;flex:0 0 auto}.card-thumb.placeholder{font-size:9px;color:#78839a;display:flex;align-items:center;justify-content:center;text-align:center}.card-meta{min-width:0}.card-link{border:0;background:transparent;padding:0;color:inherit;font:inherit;text-align:left;cursor:pointer;font-weight:800}.card-link:hover{text-decoration:underline;color:var(--cyan)}.card-inline-actions{display:flex;gap:5px;margin-top:6px}.card-inline-actions button{padding:4px 7px;font-size:10px;border-radius:7px}.mini-ladder{display:grid;gap:4px}.mini-ladder>div{display:grid;grid-template-columns:minmax(50px,1fr) auto;gap:2px 6px;padding-bottom:4px;border-bottom:1px solid #222a3e;font-size:11px}.mini-ladder b{white-space:nowrap}.mini-ladder small{grid-column:1/-1;color:#8994aa}.special-label{color:#ffd36a;font-weight:800}
