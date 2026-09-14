@@ -1,0 +1,1817 @@
+[
+  {
+    "name": "Galarian Moltres V Alternate Art",
+    "set": "Chilling Reign",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Snorlax #224 Gold",
+    "set": "Chilling Reign",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Galarian Slowking V Alternate Art",
+    "set": "Chilling Reign",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Zeraora V Alternate Art",
+    "set": "Chilling Reign",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Rayquaza VMAX #TG20",
+    "set": "Silver Tempest",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Rayquaza VMAX #TG29",
+    "set": "Silver Tempest",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Blaziken V #TG14",
+    "set": "Silver Tempest",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Regidrago V #184",
+    "set": "Silver Tempest",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Lugia VSTAR #202",
+    "set": "Silver Tempest",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Unown V #177",
+    "set": "Silver Tempest",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Serperior V #TG13",
+    "set": "Silver Tempest",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Corviknight VMAX #TG19",
+    "set": "Silver Tempest",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Blissey V #TG22",
+    "set": "Silver Tempest",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Zeraora V #TG16",
+    "set": "Silver Tempest",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Mewtwo VSTAR #GG44",
+    "set": "Crown Zenith",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Pikachu #160",
+    "set": "Crown Zenith",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Mew #GG10",
+    "set": "Crown Zenith",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Arceus VSTAR #GG70",
+    "set": "Crown Zenith",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Lugia SWSH069 Promo",
+    "set": "Pokemon Promo",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Lugia SWSH069 Staff Promo",
+    "set": "Pokemon Promo",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Gengar VMAX Alternate Art",
+    "set": "Fusion Strike",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Giratina VSTAR GG69",
+    "set": "Crown Zenith",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Lugia V Alternate Art",
+    "set": "Silver Tempest",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Charizard ex #234 (Paldean Fates)",
+    "set": "Paldean Fates",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Charizard ex #199 (151)",
+    "set": "Scarlet & Violet 151",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Rayquaza VMAX Alternate Art",
+    "set": "Evolving Skies",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Blaziken VMAX Alternate Art",
+    "set": "Chilling Reign",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Alakazam Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Blastoise Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Chansey Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Charizard Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Clefairy Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Gyarados Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Hitmonchan Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Machamp Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Magneton Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Mewtwo Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Nidoking Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Ninetales Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Poliwrath Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Raichu Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Venusaur Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Zapdos Holo",
+    "set": "Base Set",
+    "era": "WOTC"
+  },
+  {
+    "name": "Clefable Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Electrode Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Flareon Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Jolteon Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Kangaskhan Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Mr. Mime Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Nidoqueen Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Pidgeot Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Pinsir Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Scyther Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Snorlax Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Vaporeon Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Venomoth Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Victreebel Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Vileplume Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Wigglytuff Holo",
+    "set": "Jungle",
+    "era": "WOTC"
+  },
+  {
+    "name": "Aerodactyl Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Articuno Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Ditto Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dragonite Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Gengar Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Haunter Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Hitmonlee Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Hypno Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Kabutops Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Lapras Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Magneton Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Moltres Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Muk Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Raichu Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Zapdos Holo",
+    "set": "Fossil",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dark Alakazam Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dark Blastoise Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dark Charizard Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dark Dragonite Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dark Dugtrio Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dark Golbat Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dark Gyarados Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dark Hypno Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dark Machamp Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dark Magneton Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dark Slowbro Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dark Vileplume Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Dark Weezing Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Here Comes Team Rocket! Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Rocket's Sneak Attack Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Rainbow Energy Holo",
+    "set": "Team Rocket",
+    "era": "WOTC"
+  },
+  {
+    "name": "Blaine's Moltres Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Brock's Rhydon Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Erika's Clefable Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Erika's Dragonair Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Lt. Surge's Fearow Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Lt. Surge's Magneton Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Misty's Seadra Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Misty's Tentacruel Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Rocket's Hitmonchan Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Rocket's Moltres Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Rocket's Scyther Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Sabrina's Gengar Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Blaine's Charizard Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Giovanni's Gyarados Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Giovanni's Machamp Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Koga's Beedrill Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Lt. Surge's Raichu Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Misty's Gyarados Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Rocket's Mewtwo Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Sabrina's Alakazam Holo",
+    "set": "Gym Heroes / Gym Challenge",
+    "era": "WOTC"
+  },
+  {
+    "name": "Lugia Holo",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Typhlosion #17 Holo",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Typhlosion #18 Holo",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Feraligatr #4 Holo",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Feraligatr #5 Holo",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Slowking Holo",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Pichu Holo",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Heracross Holo",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Espeon Holo",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Umbreon Holo",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Houndoom Holo",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Tyranitar Holo",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Shining Gyarados",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Shining Magikarp",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Shining Celebi",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Shining Charizard",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Shining Kabutops",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Shining Mewtwo",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Shining Noctowl",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Shining Raichu",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Shining Steelix",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Shining Tyranitar",
+    "set": "Neo Genesis / Discovery / Revelation / Destiny",
+    "era": "WOTC"
+  },
+  {
+    "name": "Charizard Holo (Expedition)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Mewtwo Holo (Expedition)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Blastoise Holo (Expedition)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Venusaur Holo (Expedition)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Gengar Holo (Expedition)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Dragonite Holo (Expedition)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Umbreon Holo (Aquapolis)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Espeon Holo (Aquapolis)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Tyranitar Holo (Aquapolis)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Lugia Holo (Aquapolis)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Houndoom Holo (Aquapolis)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Crystal Nidoking (Aquapolis)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Crystal Lugia (Aquapolis)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Crystal Charizard (Skyridge)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Crystal Ho-Oh (Skyridge)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Umbreon Holo (Skyridge)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Gengar Holo (Skyridge)",
+    "set": "Expedition / Aquapolis / Skyridge",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Mewtwo ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Scyther ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Sneasel ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Gardevoir ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Blaziken ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Rayquaza ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Charizard ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Mew ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Latias ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Latios ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Gengar ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Tyranitar ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Umbreon ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Espeon ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Dragonite ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Lugia ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Ho-Oh ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Celebi ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Metagross ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Salamence ex",
+    "set": "EX Ruby & Sapphire through Power Keepers",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Charizard Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Rayquaza Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Umbreon Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Espeon Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Mew Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Mewtwo Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Pikachu Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Celebi Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Torchic Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Mudkip Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Treecko Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Latias Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Latios Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Gyarados Gold Star",
+    "set": "Gold Star cards",
+    "era": "e-Reader / EX"
+  },
+  {
+    "name": "Charizard Lv.X",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Mewtwo Lv.X",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Gengar Lv.X",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Rayquaza C Lv.X",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Garchomp C Lv.X",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Dialga G Lv.X",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Palkia G Lv.X",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Lucario Lv.X",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Leafeon Lv.X",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Glaceon Lv.X",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Shining Charizard (Secret Wonders style chase)",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Pikachu Secret Rare (Platinum)",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Charizard G Lv.X",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Darkrai Lv.X",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Cresselia Lv.X",
+    "set": "Diamond & Pearl / Platinum era",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Lugia LEGEND Top",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Lugia LEGEND Bottom",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Ho-Oh LEGEND Top",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Ho-Oh LEGEND Bottom",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Rayquaza & Deoxys LEGEND Top",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Rayquaza & Deoxys LEGEND Bottom",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Umbreon Prime",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Espeon Prime",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Gengar Prime",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Tyranitar Prime",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Lugia SL7",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Rayquaza SL10",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Ho-Oh SL5",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Deoxys SL1",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Suicune SL11",
+    "set": "HGSS / Call of Legends",
+    "era": "DP / Platinum / HGSS"
+  },
+  {
+    "name": "Reshiram Full Art",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Zekrom Full Art",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "N Full Art",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Mewtwo EX Full Art",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Rayquaza EX Full Art",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Darkrai EX Full Art",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Lugia EX Full Art",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Charizard Secret Rare",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Blastoise Secret Rare",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Empoleon Secret Rare",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Garchomp Secret Rare",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Shiny Rayquaza",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Mew EX Full Art",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Latias EX Full Art",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Latios EX Full Art",
+    "set": "Black & White era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Charizard EX Full Art (Flashfire)",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "M Charizard EX Secret Rare",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "M Gengar EX",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Gengar EX Full Art",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "M Rayquaza EX Full Art",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Rayquaza EX Full Art",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Lugia EX Full Art",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Mewtwo EX Full Art",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Umbreon EX Full Art",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Espeon EX Full Art",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Gyarados EX Secret Rare",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Alakazam EX Secret Rare",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Charizard EX Generations",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Pikachu Full Art Generations",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "M Charizard EX Generations",
+    "set": "XY era",
+    "era": "BW / XY"
+  },
+  {
+    "name": "Umbreon GX Rainbow Rare",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Espeon GX Rainbow Rare",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Sylveon GX Rainbow Rare",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Charizard GX Rainbow Rare (Burning Shadows)",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Mewtwo GX Secret Rare (Shining Legends)",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Mewtwo GX Test Tube",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Shining Mew",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Shining Rayquaza",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Shining Lugia Promo",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Lillie Full Art (Ultra Prism)",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Cynthia Full Art",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Lillie Full Art (Base)",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Latias & Latios GX Alternate Art",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Gengar & Mimikyu GX Alternate Art",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Magikarp & Wailord GX Alternate Art",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Pikachu & Zekrom GX Alternate Art",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Reshiram & Charizard GX Alternate Art",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Mewtwo & Mew GX Promo",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Charizard & Braixen GX Rainbow Rare",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Arceus & Dialga & Palkia GX Alternate Art",
+    "set": "Sun & Moon era",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Charizard GX SV49",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Umbreon GX SV69",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Espeon GX SV60",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Sylveon GX SV76",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Mewtwo GX SV59",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Rayquaza GX SV75",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Cynthia SV82",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Greninja GX SV56",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Lugia GX Rainbow Rare",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Pikachu Character Rare (Cosmic Eclipse)",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Mimikyu Character Rare",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Piplup Character Rare",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Steelix Character Rare",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Solgaleo & Lunala GX Full Art",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Reshiram & Zekrom GX Full Art",
+    "set": "Hidden Fates / Cosmic Eclipse",
+    "era": "Sun & Moon"
+  },
+  {
+    "name": "Umbreon VMAX Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Rayquaza VMAX Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Sylveon VMAX Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Leafeon VMAX Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Glaceon VMAX Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Espeon VMAX Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Gengar VMAX Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Mew VMAX Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Giratina V Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Lugia V Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Aerodactyl V Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Machamp V Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Charizard V Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Tyranitar V Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Blaziken VMAX Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Dragonite V Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Moltres V Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Zapdos V Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Articuno V Alternate Art",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Mewtwo VSTAR GG44",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Giratina VSTAR GG69",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Arceus VSTAR GG70",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Dialga VSTAR GG68",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Palkia VSTAR GG67",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Lugia SWSH069 Promo",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Lugia SWSH069 Staff Promo",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Charizard UPC Promos set",
+    "set": "Sword & Shield era",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Celebrations Charizard",
+    "set": "Celebrations / Trainer Gallery",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Celebrations Umbreon Gold Star",
+    "set": "Celebrations / Trainer Gallery",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Celebrations Mew Gold",
+    "set": "Celebrations / Trainer Gallery",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Celebrations Shining Magikarp",
+    "set": "Celebrations / Trainer Gallery",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Pikachu VMAX TG17",
+    "set": "Celebrations / Trainer Gallery",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Rayquaza VMAX TG20",
+    "set": "Celebrations / Trainer Gallery",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Umbreon VMAX TG23",
+    "set": "Celebrations / Trainer Gallery",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Sylveon VMAX TG15",
+    "set": "Celebrations / Trainer Gallery",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Garchomp V TG23",
+    "set": "Celebrations / Trainer Gallery",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Starmie V TG13",
+    "set": "Celebrations / Trainer Gallery",
+    "era": "Sword & Shield"
+  },
+  {
+    "name": "Miriam Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Gardevoir ex Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Iono Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Magikarp Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Charizard ex #199 (151)",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Blastoise ex #200 (151)",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Venusaur ex #198 (151)",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Zapdos ex #202 (151)",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Alakazam ex #201 (151)",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Erika's Invitation #203 (151)",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Mew ex #232 (151)",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Charizard ex #234 (Paldean Fates)",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Mew ex #232 (Paldean Fates)",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Gardevoir ex #233 (Paldean Fates)",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Iono #237 (Paldean Fates)",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Greninja ex Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Carmine Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Perrin Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Eevee Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Bubble Mew ex",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Iron Crown ex Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Raging Bolt ex Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Gouging Fire ex Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Walking Wake ex Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Terapagos ex Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Hydreigon ex Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Milotic ex Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Latias ex Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Pikachu ex Special Illustration Rare",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Lugia ex / modern high-end chase candidate",
+    "set": "Scarlet & Violet era",
+    "era": "Scarlet & Violet"
+  },
+  {
+    "name": "Ancient Mew",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Birthday Pikachu",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Cool Porygon",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Mew #9 Promo",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Pikachu #1 Promo",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Venusaur #13 Promo",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Mewtwo #12 Promo",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Entei #34 Promo",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Lugia #9 Promo",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Charizard V SWSH260",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Charizard VMAX SWSH261",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Charizard VSTAR SWSH262",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Pikachu with Grey Felt Hat",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Van Gogh Pikachu",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Special Delivery Pikachu",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Special Delivery Charizard",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Mewtwo V-UNION Promo set",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  },
+  {
+    "name": "Mew ex Metal Promo",
+    "set": "English Black Star / Special Promos",
+    "era": "Promos"
+  }
+]

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pokémon TCG Free Live Graded Bargain Finder</title>
+<style>
+:root{--bg:#090b12;--panel:#111522;--panel2:#171c2c;--text:#f4f7ff;--muted:#9aa4b7;--line:#283149;--cyan:#51e6ff;--violet:#9b7bff;--green:#5ee39d;--yellow:#ffd36a;--red:#ff7f8a}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#080a12,#0d1020 38%,#090b12);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.wrap{max-width:1500px;margin:auto;padding:24px}h1{font-size:clamp(26px,4vw,44px);margin:0;background:linear-gradient(90deg,#fff,#79edff,#ba9dff);-webkit-background-clip:text;color:transparent}.sub{color:var(--muted);max-width:1100px;margin:8px 0 18px}.toolbar,.stats,.notice,.add-card{background:rgba(17,21,34,.94);border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 38px #0007}.toolbar{padding:12px;display:grid;grid-template-columns:minmax(220px,1fr) repeat(6,auto);gap:8px;position:sticky;top:8px;z-index:10;backdrop-filter:blur(14px)}input,select,button{border-radius:11px;border:1px solid #35405d;background:#0c1120;color:var(--text);padding:10px 12px}button{cursor:pointer;font-weight:700}button.primary{background:linear-gradient(90deg,#5fdfff,#9c7dff);color:#080b13;border:none}button:disabled{opacity:.5;cursor:not-allowed}.stats{margin:14px 0;padding:12px;display:grid;grid-template-columns:repeat(5,minmax(120px,1fr));gap:10px}.stat b{display:block;font-size:20px}.stat span{color:var(--muted);font-size:12px}.notice{padding:12px 14px;margin:14px 0;color:#d7def0}.notice.good{border-color:#28563f}.notice.bad{border-color:#6b3040;color:#ffd8dc}.notice strong{color:var(--yellow)}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:var(--panel);box-shadow:0 14px 42px #0007}table{border-collapse:collapse;width:100%;min-width:1300px;table-layout:fixed}col.watch{width:64px}col.card{width:260px}col.price{width:126px}col.best{width:150px}col.save{width:110px}col.updated{width:145px}col.actions{width:105px}th,td{padding:11px 10px;border-bottom:1px solid #232b40;text-align:left;vertical-align:top}th{background:#121728;color:#cfd8ef;font-size:12px;text-transform:uppercase;letter-spacing:.04em}tr:hover td{background:#131a2a}.cardname{font-weight:800;line-height:1.25;overflow-wrap:anywhere}.set{color:var(--muted);font-size:12px}.muted{color:var(--muted)}.price{font-weight:800}.savings{font-weight:800;color:var(--green)}.negative{color:var(--red)}.watchbox{accent-color:#7ce7ff}.details{display:none;background:#0c101a}.details.open{display:table-row}.details td{padding:15px 18px}.grader-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.grader{background:#111727;border:1px solid #29334c;border-radius:13px;padding:11px}.grader h4{margin:0 0 8px}.gradechip{display:flex;justify-content:space-between;gap:8px;border-top:1px solid #263047;padding:6px 0}.pagination{display:flex;gap:8px;justify-content:center;align-items:center;margin:18px 0}.add-card{padding:14px;margin-top:16px}.add-grid{display:grid;grid-template-columns:2fr 1.4fr 1fr auto;gap:8px}.foot{color:var(--muted);font-size:12px;margin:18px 0 50px}.tiny{font-size:11px}.spinner{display:inline-block;width:14px;height:14px;border:2px solid #ffffff55;border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;vertical-align:-2px}@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:900px){.toolbar{grid-template-columns:1fr 1fr;position:static}.stats{grid-template-columns:1fr 1fr}.grader-grid{grid-template-columns:1fr}.add-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Pokémon TCG Free Live Graded Bargain Finder</h1>
+<div class="sub">English-focused watchlist comparing recent raw sold comps against recent PSA, Beckett/BGS, CGC, and TAG graded sales from grade 7 upward. No API key is stored in this page; the free API key stays in the Cloudflare Worker secret.</div>
+
+<div class="toolbar">
+  <input id="search" placeholder="Search card, set, era…" />
+  <select id="era"><option value="">All eras</option></select>
+  <select id="sort"><option value="saving">Best savings</option><option value="name">Name</option><option value="raw">Raw sold median</option><option value="fresh">Recently updated</option></select>
+  <button id="selectAll">Select all</button>
+  <button id="updateVisible">Update visible</button>
+  <button id="updateSelected">Update selected (0)</button>
+  <button class="primary" id="health">Test live data</button>
+</div>
+
+<div class="stats">
+  <div class="stat"><b id="count">0</b><span>cards in list</span></div>
+  <div class="stat"><b id="priced">0</b><span>with live comps</span></div>
+  <div class="stat"><b id="deals">0</b><span>slab bargains</span></div>
+  <div class="stat"><b id="selected">0</b><span>selected</span></div>
+  <div class="stat"><b id="progress">Idle</b><span>update status</span></div>
+</div>
+
+<div id="notice" class="notice"><strong>Free mode:</strong> the backend uses the free The Card API plan and caches each card for about 20 hours. The free source only exposes a recent 3-day sales window, so low-volume cards may show “no recent comps.”</div>
+
+<div class="table-wrap"><table>
+<colgroup><col class="watch"><col class="card"><col class="price"><col class="price"><col class="price"><col class="price"><col class="price"><col class="best"><col class="save"><col class="updated"><col class="actions"></colgroup>
+<thead><tr><th>Watch</th><th>Card</th><th>Raw sold</th><th>PSA 7+</th><th>BGS 7+</th><th>CGC 7+</th><th>TAG 7+</th><th>Best deal</th><th>Savings</th><th>Updated</th><th></th></tr></thead>
+<tbody id="body"></tbody>
+</table></div>
+<div class="pagination"><button id="prev">← Prev</button><span id="pageInfo"></span><button id="next">Next →</button></div>
+
+<div class="add-card"><b>Add another card</b><div class="add-grid" style="margin-top:8px"><input id="addName" placeholder="Card / variant"><input id="addSet" placeholder="Set"><input id="addEra" placeholder="Era"><button id="addBtn">Add card</button></div></div>
+<div class="foot">Prices are recent sold-comparison medians, not guaranteed fair value. Always inspect the actual listing title/condition before buying. Cached data reduces API usage and keeps the project inside free-tier limits.</div>
+</div>
+<script>
+const PAGE_SIZE=25;
+let state={cards:[],page:1,selected:new Set(),busy:false};
+const $=s=>document.querySelector(s);
+const money=v=>Number.isFinite(v)?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(v):'—';
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+const keyOf=c=>(c.name+'|'+c.set).toLowerCase();
+
+async function init(){
+  const seed=await fetch('/seed.json').then(r=>r.json());
+  const custom=JSON.parse(localStorage.getItem('ptcg-free-custom')||'[]');
+  const saved=JSON.parse(localStorage.getItem('ptcg-free-live')||'{}');
+  const selected=JSON.parse(localStorage.getItem('ptcg-free-selected')||'[]');
+  state.selected=new Set(selected);
+  state.cards=[...seed,...custom].map(c=>({...c,live:saved[keyOf(c)]||null}));
+  const eras=[...new Set(state.cards.map(c=>c.era).filter(Boolean))].sort();
+  $('#era').innerHTML='<option value="">All eras</option>'+eras.map(e=>`<option>${esc(e)}</option>`).join('');
+  render();
+}
+function filtered(){
+  const q=$('#search').value.trim().toLowerCase(), era=$('#era').value;
+  let a=state.cards.filter(c=>(!era||c.era===era)&&(!q||`${c.name} ${c.set} ${c.era}`.toLowerCase().includes(q)));
+  const sort=$('#sort').value;
+  if(sort==='name') a.sort((x,y)=>x.name.localeCompare(y.name));
+  else if(sort==='raw') a.sort((x,y)=>(y.live?.raw?.median||-1)-(x.live?.raw?.median||-1));
+  else if(sort==='fresh') a.sort((x,y)=>new Date(y.live?.updatedAt||0)-new Date(x.live?.updatedAt||0));
+  else a.sort((x,y)=>(y.live?.best?.saving??-999)-(x.live?.best?.saving??-999));
+  return a;
+}
+function bestFor(graderData){
+  const entries=Object.entries(graderData||{}).map(([grade,v])=>({grade,price:v.median,count:v.count})).filter(x=>Number.isFinite(x.price));
+  if(!entries.length) return null; entries.sort((a,b)=>a.price-b.price); return entries[0];
+}
+function saveLocal(){
+  const map={}; for(const c of state.cards) if(c.live) map[keyOf(c)]=c.live;
+  localStorage.setItem('ptcg-free-live',JSON.stringify(map));
+  localStorage.setItem('ptcg-free-selected',JSON.stringify([...state.selected]));
+}
+function render(){
+  const all=filtered(), pages=Math.max(1,Math.ceil(all.length/PAGE_SIZE)); state.page=Math.min(state.page,pages);
+  const view=all.slice((state.page-1)*PAGE_SIZE,state.page*PAGE_SIZE);
+  $('#body').innerHTML=view.map((c,i)=>{
+    const k=keyOf(c), live=c.live, raw=live?.raw?.median, best=live?.best;
+    const g=(name)=>{const b=bestFor(live?.graders?.[name]);return b?`${money(b.price)} <span class="tiny muted">${name} ${esc(b.grade)}</span>`:'—'};
+    const save=best&&Number.isFinite(best.saving)?best.saving:null;
+    const details=['PSA','BGS','CGC','TAG'].map(gr=>{
+      const rows=Object.entries(live?.graders?.[gr]||{}).sort((a,b)=>Number(b[0])-Number(a[0])).map(([grade,v])=>`<div class="gradechip"><span>${gr} ${esc(grade)}</span><span>${money(v.median)} <span class="tiny muted">(${v.count})</span></span></div>`).join('')||'<span class="muted">No grade 7+ sales in recent comps.</span>';
+      return `<div class="grader"><h4>${gr}</h4>${rows}</div>`;
+    }).join('');
+    return `<tr><td><input class="watchbox sel" data-k="${esc(k)}" type="checkbox" ${state.selected.has(k)?'checked':''}></td><td><div class="cardname">${esc(c.name)}</div><div class="set">${esc(c.set)} · ${esc(c.era||'')}</div></td><td class="price">${money(raw)}${live?.raw?.count?` <span class="tiny muted">(${live.raw.count})</span>`:''}</td><td>${g('PSA')}</td><td>${g('BGS')}</td><td>${g('CGC')}</td><td>${g('TAG')}</td><td>${best?`${best.grader} ${esc(best.grade)}<br>${money(best.price)}`:'—'}</td><td class="${save!=null?(save>0?'savings':'negative'):''}">${save!=null?(save*100).toFixed(1)+'%':'—'}</td><td class="tiny muted">${live?.updatedAt?new Date(live.updatedAt).toLocaleString():'—'}</td><td><button class="refresh" data-k="${esc(k)}">↻</button> <button class="grades" data-id="d${i}">Grades</button></td></tr><tr id="d${i}" class="details"><td colspan="11"><div class="grader-grid">${details}</div>${live?.query?`<div class="tiny muted" style="margin-top:10px">Search: ${esc(live.query)}</div>`:''}</td></tr>`;
+  }).join('');
+  $('#count').textContent=all.length; $('#priced').textContent=state.cards.filter(c=>c.live).length; $('#deals').textContent=state.cards.filter(c=>c.live?.best?.saving>0).length; $('#selected').textContent=state.selected.size; $('#updateSelected').textContent=`Update selected (${state.selected.size})`; $('#pageInfo').textContent=`Page ${state.page} of ${pages}`; $('#prev').disabled=state.page<=1; $('#next').disabled=state.page>=pages;
+  const matchKeys=all.map(keyOf), allSelected=matchKeys.length&&matchKeys.every(k=>state.selected.has(k)); $('#selectAll').textContent=allSelected?'Clear selected':'Select all';
+  document.querySelectorAll('.sel').forEach(el=>el.onchange=()=>{el.checked?state.selected.add(el.dataset.k):state.selected.delete(el.dataset.k);saveLocal();render();});
+  document.querySelectorAll('.grades').forEach(b=>b.onclick=()=>$('#'+b.dataset.id).classList.toggle('open'));
+  document.querySelectorAll('.refresh').forEach(b=>b.onclick=()=>{const c=state.cards.find(x=>keyOf(x)===b.dataset.k);updateCards([c],true)});
+}
+async function updateOne(c,force=false){
+  const u=new URL('/api/card',location.origin);u.searchParams.set('name',c.name);u.searchParams.set('set',c.set||'');if(force)u.searchParams.set('force','1');
+  const r=await fetch(u);const data=await r.json().catch(()=>({error:`HTTP ${r.status}`}));if(!r.ok) throw new Error(data.error||`HTTP ${r.status}`);c.live=data;return data;
+}
+async function updateCards(cards,force=false){
+  if(state.busy||!cards.length)return;state.busy=true;document.querySelectorAll('button').forEach(b=>b.disabled=true);let ok=0,fail=0;
+  for(let i=0;i<cards.length;i++){ $('#progress').innerHTML=`${i+1}/${cards.length}`; $('#notice').className='notice'; $('#notice').innerHTML=`<span class="spinner"></span> Updating <strong>${esc(cards[i].name)}</strong>…`; try{await updateOne(cards[i],force);ok++;}catch(e){fail++;$('#notice').className='notice bad';$('#notice').textContent=`${cards[i].name}: ${e.message}`;} if(i%3===0){saveLocal();render();} }
+  saveLocal();state.busy=false;document.querySelectorAll('button').forEach(b=>b.disabled=false);$('#progress').textContent='Done';$('#notice').className=fail?'notice bad':'notice good';$('#notice').textContent=`Finished: ${ok} updated${fail?`, ${fail} failed`:''}. Cached results will be reused to protect the free quota.`;render();
+}
+$('#search').oninput=()=>{state.page=1;render()};$('#era').onchange=()=>{state.page=1;render()};$('#sort').onchange=render;$('#prev').onclick=()=>{state.page--;render()};$('#next').onclick=()=>{state.page++;render()};
+$('#selectAll').onclick=()=>{const ks=filtered().map(keyOf),all=ks.length&&ks.every(k=>state.selected.has(k));ks.forEach(k=>all?state.selected.delete(k):state.selected.add(k));saveLocal();render()};
+$('#updateVisible').onclick=()=>{const a=filtered().slice((state.page-1)*PAGE_SIZE,state.page*PAGE_SIZE);updateCards(a,false)};
+$('#updateSelected').onclick=()=>updateCards(state.cards.filter(c=>state.selected.has(keyOf(c))),false);
+$('#health').onclick=async()=>{try{const d=await fetch('/api/health').then(r=>r.json());$('#notice').className=d.ok&&d.keyConfigured?'notice good':'notice bad';$('#notice').textContent=d.ok&&d.keyConfigured?'Live backend is working and the secret API key is configured.':'Backend is reachable, but THE_CARD_API_KEY is not configured yet.';}catch(e){$('#notice').className='notice bad';$('#notice').textContent='Backend test failed: '+e.message;}};
+$('#addBtn').onclick=()=>{const name=$('#addName').value.trim();if(!name)return;const c={name,set:$('#addSet').value.trim(),era:$('#addEra').value.trim()||'Custom'};const custom=JSON.parse(localStorage.getItem('ptcg-free-custom')||'[]');custom.push(c);localStorage.setItem('ptcg-free-custom',JSON.stringify(custom));state.cards.push({...c,live:null});$('#addName').value=$('#addSet').value=$('#addEra').value='';render();};
+init();
+</script>
+</body></html>
