@@ -6,11 +6,8 @@ function apiKey(env) {
   return String(env?.THE_CARD_API_KEY || '').trim();
 }
 
-function keyProblem(env) {
-  const key = apiKey(env);
-  if (!key) return { code: 'secret_missing', message: 'THE_CARD_API_KEY is not configured in Cloudflare Runtime variables and secrets.' };
-  if (!key.startsWith('tca_')) return { code: 'secret_wrong_format', message: 'The runtime secret is present, but it is not a The Card API key (expected a key beginning with tca_).' };
-  return null;
+function missingKey(env) {
+  return !apiKey(env);
 }
 
 function json(data, status = 200) {
@@ -119,22 +116,21 @@ function publicSale(row, match) {
 }
 
 async function health(env) {
-  const problem = keyProblem(env);
-  if (problem) {
-    return json({ source: 'The Card API', freeMode: true, ok: false, keyConfigured: !!apiKey(env), auth: problem.code, message: problem.message }, 503);
+  if (missingKey(env)) {
+    return json({ source: 'The Card API', freeMode: true, ok: false, keyConfigured: false, auth: 'not_configured', message: 'THE_CARD_API_KEY is not configured in Cloudflare Runtime variables and secrets.' }, 503);
   }
+
   const result = await cardApi(env, {
     q: 'Pikachu', platform: 'ebay', category: 'tcg', graded: false, sort: 'date_desc', limit: 1,
   });
   if (!result.ok) {
-    return json({ source: 'The Card API', freeMode: true, ok: false, keyConfigured: true, keyFormat: 'tca_', auth: 'failed', upstreamStatus: result.status, message: result.message, rate: result.rate }, result.status);
+    return json({ source: 'The Card API', freeMode: true, ok: false, keyConfigured: true, auth: 'failed', upstreamStatus: result.status, message: result.message, rate: result.rate }, result.status);
   }
-  return json({ source: 'The Card API', freeMode: true, ok: true, keyConfigured: true, keyFormat: 'tca_', auth: 'passed', message: 'The Card API accepted the runtime secret.', rate: result.rate });
+  return json({ source: 'The Card API', freeMode: true, ok: true, keyConfigured: true, auth: 'passed', message: 'The Card API accepted the runtime secret.', rate: result.rate });
 }
 
 async function activity(request, env) {
-  const problem = keyProblem(env);
-  if (problem) return json({ error: problem.message, code: problem.code, fatal: true }, 503);
+  if (missingKey(env)) return json({ error: 'THE_CARD_API_KEY is not configured in Cloudflare Runtime variables and secrets.', code: 'secret_missing', fatal: true }, 503);
 
   let body;
   try { body = await request.json(); } catch { return json({ error: 'Invalid JSON body.' }, 400); }
