@@ -1,0 +1,64 @@
+const CARD_API='https://thecardapi.com/api/v1/market/sales';
+const GRADERS=['PSA','BGS','CGC','TAG'];
+const FATAL=new Set([401,403,429]);
+const json=(d,s=200)=>new Response(JSON.stringify(d),{status:s,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store','Access-Control-Allow-Origin':'*'}});
+const norm=v=>String(v||'').normalize('NFKD').replace(/[’']/g,'').replace(/[^a-zA-Z0-9.]+/g,' ').toLowerCase().replace(/\s+/g,' ').trim();
+const price=r=>{const n=Number(r?.price??r?.sale_price);return Number.isFinite(n)&&n>0?n:null};
+const median=a=>{a=a.filter(Number.isFinite).slice().sort((x,y)=>x-y);if(!a.length)return null;const m=Math.floor(a.length/2);return a.length%2?a[m]:(a[m-1]+a[m])/2};
+const safe=v=>{try{const u=new URL(String(v||''));return u.protocol==='https:'?u.toString():null}catch{return null}};
+function number(name,explicit=''){return String(explicit||'').trim().replace(/^#/,'')||String(name||'').match(/#\s*([A-Za-z0-9-]+)/)?.[1]||''}
+function cleanName(name){return String(name||'').replace(/#\s*[A-Za-z0-9-]+/g,' ').replace(/\s+/g,' ').trim()}
+function usableSet(s){s=String(s||'').trim();if(!s)return'';return /era$|^pokemon promo$|english black star|gold star cards|diamond\s*&\s*pearl|^hgss$|call of legends|sun\s*&\s*moon era|sword\s*&\s*shield era|scarlet\s*&\s*violet era/i.test(s)?'':s}
+function query(name,set,num,mode='precise'){return[cleanName(name),num,mode==='precise'?usableSet(set):'','-Japanese','-Korean','-Chinese'].filter(Boolean).join(' ').replace(/\s+/g,' ').trim()}
+const GENERIC=new Set(['pokemon','card','cards','tcg','rare','promo','set','the','and','with','edition']);
+function tokens(v){return norm(v).split(' ').filter(t=>t.length>=2&&!GENERIC.has(t))}
+function score(r,id){const title=String(r?.title||''),n=norm(title);if(!n||/\b(lot|bundle|collection|repack|proxy|custom)\b/i.test(title))return 0;let s=0;const flat=n.replace(/\s+/g,''),num=norm(id.number).replace(/\s+/g,'');if(num)s+=flat.includes(num)?42:-28;const nt=tokens(cleanName(id.name));if(nt.length)s+=35*nt.filter(t=>n.includes(t)).length/nt.length;const st=tokens(usableSet(id.set));s+=st.length?13*st.filter(t=>n.includes(t)).length/st.length:4;return Math.max(0,Math.min(100,Math.round(s)))}
+function explicitGrader(r){const g=String(r?.grader||r?.grading_company||'').toUpperCase().replace(/[^A-Z]/g,'');if(g==='PSA')return'PSA';if(g==='BGS'||g.includes('BECKETT'))return'BGS';if(g==='CGC')return'CGC';if(g==='TAG')return'TAG';return null}
+function titleGrader(r){const t=String(r?.title||'');if(/\bPSA\b/i.test(t))return'PSA';if(/\bBGS\b|\bBECKETT\b/i.test(t))return'BGS';if(/\bCGC\b/i.test(t))return'CGC';if(/\bTAG\b/i.test(t))return'TAG';return null}
+function graderOf(r){return explicitGrader(r)||titleGrader(r)}
+function gradeOf(r,g){const direct=String(r?.grade??'').match(/\b(10|9\.5|9|8\.5|8|7\.5|7)\b/);if(direct)return Number(direct[1]);const t=String(r?.title||'');const names=g==='BGS'?'(?:BGS|BECKETT)':g;const a=t.match(new RegExp(`\\b${names}\\s*(?:GRADE\\s*)?(10|9\\.5|9|8\\.5|8|7\\.5|7)\\b`,'i'));if(a)return Number(a[1]);const b=t.match(new RegExp(`\\b(10|9\\.5|9|8\\.5|8|7\\.5|7)\\s*${names}\\b`,'i'));return b?Number(b[1]):null}
+function slabLike(r){const t=`${r?.title||''} ${r?.grader||''} ${r?.grading_company||''} ${r?.grade||''}`;return !!graderOf(r)||/\b(graded|slab|gem mint|pristine|black label|perfect)\b/i.test(t)}
+function condition(r){const t=`${r?.condition||''} ${r?.title||''}`.toLowerCase();if(/\b(damaged|damage|dmg|heavily played|heavy played|hp|moderately played|mp|lightly played|lp)\b/.test(t))return'lower';if(/\b(near mint|nm\+?|mint)\b/.test(t))return'near_mint';return'unknown'}
+function labelOf(r){const t=`${r?.label||''} ${r?.title||''}`.toLowerCase();if(/black\s*label|perfect\s*pristine/.test(t))return'Black Label';if(/\bperfect\b/.test(t))return'Perfect';if(/\bpristine\b/.test(t))return'Pristine';if(/gem\s*(mint|mt)/.test(t))return'Gem Mint';const e=String(r?.label||'').trim();return e&&!/^standard$/i.test(e)?e.slice(0,60):''}
+function rawAccepted(rows,id){return rows.map(row=>({row,match:score(row,id),condition:condition(row)})).filter(x=>x.match>=42&&!slabLike(x.row)&&x.condition!=='lower'&&price(x.row)!=null)}
+function gradedAccepted(rows,id,g){return rows.map(row=>({row,match:score(row,id)})).filter(x=>x.match>=42&&graderOf(x.row)===g&&gradeOf(x.row,g)>=7&&price(x.row)!=null)}
+function key(r){return String(r?.id||r?.sale_id||r?.listing_url||`${r?.title||''}|${price(r)||''}|${r?.sale_date||r?.sold_at||''}`)}
+function merge(...groups){const seen=new Set(),out=[];for(const a of groups)for(const r of(a||[])){const k=key(r);if(!seen.has(k)){seen.add(k);out.push(r)}}return out}
+function rate(resp){const n=k=>{const v=Number(resp.headers.get(k));return Number.isFinite(v)?v:null};return{limit:n('X-RateLimit-Limit'),remaining:n('X-RateLimit-Remaining'),reset:n('X-RateLimit-Reset')}}
+function mergeRate(rs){const vals=k=>rs.map(r=>r?.[k]).filter(Number.isFinite);const l=vals('limit'),m=vals('remaining'),z=vals('reset');return{limit:l.length?Math.max(...l):null,remaining:m.length?Math.min(...m):null,reset:z.length?Math.max(...z):null}}
+async function fetchSales(env,p){const u=new URL(CARD_API);for(const[k,v]of Object.entries(p))if(v!==undefined&&v!==null&&v!=='')u.searchParams.set(k,String(v));const resp=await fetch(u,{headers:{'x-market-api-key':String(env?.THE_CARD_API_KEY||'').trim()}}),rt=rate(resp);let body=null;try{body=await resp.json()}catch{}if(!resp.ok){const e=new Error(String(body?.message??body?.error??body?.detail??`The Card API returned HTTP ${resp.status}`));e.status=resp.status;e.rate=rt;throw e}return{rows:Array.isArray(body?.data)?body.data:[],rate:rt}}
+function pub(x,g=null){const r=x.row||x,gr=g||graderOf(r),gd=gr?gradeOf(r,gr):null,l=gr?labelOf(r):'';return{title:String(r?.title||'').slice(0,220),price:price(r),date:r?.sale_date||r?.sold_at||null,url:safe(r?.listing_url),image:safe(r?.image_url),thumbnail:safe(r?.thumbnail_url||r?.image_url),grader:gr,grade:gd==null?null:String(gd),label:l||null,displayGrade:gd==null?null:`${gd}${l?` ${l}`:''}`,condition:r?.condition||null,conditionClass:x.condition||null,match:x.match??null}}
+function summarize(id,rawRows,graderRows){
+  const ra=rawAccepted(rawRows,id),rp=ra.map(x=>price(x.row));
+  const raw=rp.length?{median:median(rp),count:rp.length,nearMintConfirmed:ra.filter(x=>x.condition==='near_mint').length,conditionUnknown:ra.filter(x=>x.condition==='unknown').length}:null;
+  const graders={},acceptedBy={},allGraded=[];let best=null,bestItems=[];
+  for(const g of GRADERS){
+    const ac=gradedAccepted(graderRows[g]||[],id,g);acceptedBy[g]=ac;allGraded.push(...ac);
+    const buckets=new Map();
+    for(const x of ac){const gd=gradeOf(x.row,g),l=labelOf(x.row),k=`${gd}|${l.toLowerCase()}`;if(!buckets.has(k))buckets.set(k,{grade:gd,label:l,items:[]});buckets.get(k).items.push(x)}
+    graders[g]={};
+    for(const[k,b]of buckets){const med=median(b.items.map(x=>price(x.row))),avg=Math.round(b.items.reduce((s,x)=>s+x.match,0)/b.items.length);graders[g][k]={grade:b.grade,label:b.label||null,displayGrade:`${b.grade}${b.label?` ${b.label}`:''}`,median:med,count:b.items.length,avgMatch:avg};if(raw?.median&&Number.isFinite(med)){const saving=(raw.median-med)/raw.median;if(!best||saving>best.saving){best={grader:g,grade:b.grade,label:b.label||null,displayGrade:`${b.grade}${b.label?` ${b.label}`:''}`,price:med,saving,count:b.items.length,avgMatch:avg};bestItems=b.items}}}
+  }
+  const image=[...ra,...allGraded].map(x=>safe(x.row?.thumbnail_url||x.row?.image_url)).find(Boolean)||null;
+  let confidence={level:'none',score:0,reasons:['No comparable raw and graded sales were found in the available window.']};
+  if(raw&&best){let sc=Math.min(25,raw.count*6)+Math.min(25,best.count*8);if(raw.nearMintConfirmed)sc+=15;if(id.number)sc+=5;sc=Math.min(100,sc+20);confidence={level:sc>=78?'high':sc>=55?'medium':'low',score:sc,reasons:[raw.nearMintConfirmed?`${raw.nearMintConfirmed} raw comp(s) explicitly Near Mint/Mint.`:'Raw condition not explicitly confirmed.',id.number?`Card number ${id.number} used for matching.`:'No card number stored.']}}
+  return{
+    raw,graders,best,image,confidence,
+    rawSales:ra.slice(0,8).map(x=>pub(x)),
+    bestGradedSales:bestItems.slice(0,8).map(x=>pub(x,best?.grader)),
+    gradedSales:Object.fromEntries(GRADERS.map(g=>[g,(acceptedBy[g]||[]).slice(0,8).map(x=>pub(x,g))])),
+    saleCounts:{rawReturned:rawRows.length,rawAccepted:ra.length,gradedReturned:Object.fromEntries(GRADERS.map(g=>[g,(graderRows[g]||[]).length])),gradedAccepted:Object.fromEntries(GRADERS.map(g=>[g,acceptedBy[g].length]))}
+  }
+}
+export async function handleCard(request,env){
+  const url=new URL(request.url);if(!env.THE_CARD_API_KEY)return json({error:'THE_CARD_API_KEY is not configured.',fatal:true},503);
+  const name=(url.searchParams.get('name')||'').trim(),set=(url.searchParams.get('set')||'').trim(),num=number(name,url.searchParams.get('number')||'');if(!name)return json({error:'Missing card name.'},400);
+  const rawLimit=Math.max(3,Math.min(25,parseInt(url.searchParams.get('rawLimit')||'12',10)||12)),graderLimit=Math.max(3,Math.min(20,parseInt(url.searchParams.get('graderLimit')||'10',10)||10)),id={name,set,number:num},precise=query(name,set,num,'precise'),fallback=query(name,set,num,'fallback'),rates=[],attempts={raw:[],graders:{}};
+  try{
+    let r=await fetchSales(env,{q:precise,platform:'ebay',sort:'date_desc',limit:rawLimit});rates.push(r.rate);let rawRows=r.rows;attempts.raw.push({mode:'precise-all-sales',query:precise,returned:r.rows.length});
+    if(rawAccepted(rawRows,id).length<2&&fallback!==precise){r=await fetchSales(env,{q:fallback,platform:'ebay',sort:'date_desc',limit:rawLimit});rates.push(r.rate);attempts.raw.push({mode:'fallback-all-sales',query:fallback,returned:r.rows.length});rawRows=merge(rawRows,r.rows)}
+    const graderRows={};
+    for(const g of GRADERS){attempts.graders[g]=[];const q1=`${precise} ${g}`;let x=await fetchSales(env,{q:q1,platform:'ebay',sort:'date_desc',limit:graderLimit});rates.push(x.rate);let rows=x.rows;attempts.graders[g].push({mode:'title-search',query:q1,returned:x.rows.length});if(gradedAccepted(rows,id,g).length<1&&fallback!==precise){const q2=`${fallback} ${g}`;x=await fetchSales(env,{q:q2,platform:'ebay',sort:'date_desc',limit:graderLimit});rates.push(x.rate);attempts.graders[g].push({mode:'fallback-title-search',query:q2,returned:x.rows.length});rows=merge(rows,x.rows)}graderRows[g]=rows}
+    return json({ok:true,card:id,query:precise,queries:{precise,fallback},attempts,updatedAt:new Date().toISOString(),source:'The Card API',lookback:'Free tier: maximum 3-day rolling window',classification:'Local title/metadata classification; API graded/category filters bypassed because live results misclassified slab listings.',limits:{rawLimit,graderLimit,estimatedMaximumRows:(rawLimit+graderLimit*4)*2},rate:mergeRate(rates),...summarize(id,rawRows,graderRows)})
+  }catch(e){const s=e.status&&e.status>=400&&e.status<600?e.status:502;return json({error:e.message||'Upstream API error',upstreamStatus:e.status||null,fatal:FATAL.has(e.status),rate:e.rate||null,query:precise},s)}
+}
