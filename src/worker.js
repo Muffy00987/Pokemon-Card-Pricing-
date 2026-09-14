@@ -325,7 +325,7 @@ function summarize(identity, rawRows, graderRows) {
 async function deepHealth(env) {
   if (!env.THE_CARD_API_KEY) return { ok: false, keyConfigured: false, auth: 'not_configured', message: 'THE_CARD_API_KEY is not configured in Runtime variables and secrets.' };
   try {
-    const result = await fetchSales(env, { q: 'Pikachu', platform: 'ebay', category: 'tcg', graded: false, sort: 'date_desc', limit: 1 });
+    const result = await fetchSales(env, { q: 'Pikachu', platform: 'ebay', graded: false, sort: 'date_desc', limit: 1 });
     return { ok: true, keyConfigured: true, auth: 'passed', message: 'The Card API accepted the runtime secret.', rate: result.rate };
   } catch (e) {
     return { ok: false, keyConfigured: true, auth: 'failed', upstreamStatus: e.status || null, message: e.message || 'The Card API authentication test failed.', rate: e.rate || null };
@@ -360,7 +360,7 @@ export default {
           };
           if (!identity.name) return null;
           const q = buildQuery(identity.name, identity.set, identity.number, 'fallback');
-          const r = await fetchSales(env, { q, platform: 'ebay', category: 'tcg', sort: 'date_desc', limit: 1 });
+          const r = await fetchSales(env, { q, platform: 'ebay', sort: 'date_desc', limit: 1 });
           const first = r.rows[0] || null;
           const match = first ? scoreSale(first, identity) : 0;
           return {
@@ -391,19 +391,16 @@ export default {
       const fallbackQ = buildQuery(name, setName, number, 'fallback');
 
       try {
-        // Two-stage targeted scan. Start precise; if too few accepted matches survive identity
-        // filtering, retry without the set name. Variant words and card number remain intact.
-        // This costs more only when the precise search is thin.
         const rates = [];
         const attempts = { raw: [], graders: {} };
 
-        const rawFirst = await fetchSales(env, { q: preciseQ, platform: 'ebay', category: 'tcg', graded: false, sort: 'date_desc', limit: rawLimit });
+        const rawFirst = await fetchSales(env, { q: preciseQ, platform: 'ebay', graded: false, sort: 'date_desc', limit: rawLimit });
         rates.push(rawFirst.rate);
         let rawRows = rawFirst.rows;
         attempts.raw.push({ mode: 'precise', query: preciseQ, returned: rawFirst.rows.length });
         let rawAcceptedNow = filterRawRows(rawRows, identity).length;
         if (rawAcceptedNow < 2 && fallbackQ !== preciseQ) {
-          const rawFallback = await fetchSales(env, { q: fallbackQ, platform: 'ebay', category: 'tcg', graded: false, sort: 'date_desc', limit: rawLimit });
+          const rawFallback = await fetchSales(env, { q: fallbackQ, platform: 'ebay', graded: false, sort: 'date_desc', limit: rawLimit });
           rates.push(rawFallback.rate);
           attempts.raw.push({ mode: 'fallback', query: fallbackQ, returned: rawFallback.rows.length });
           rawRows = mergeUniqueRows(rawRows, rawFallback.rows);
@@ -412,13 +409,13 @@ export default {
         const graderRows = {};
         for (const grader of GRADERS) {
           attempts.graders[grader] = [];
-          const first = await fetchSales(env, { q: preciseQ, platform: 'ebay', category: 'tcg', graded: true, grader, sort: 'date_desc', limit: graderLimit });
+          const first = await fetchSales(env, { q: preciseQ, platform: 'ebay', graded: true, grader, sort: 'date_desc', limit: graderLimit });
           rates.push(first.rate);
           let rows = first.rows;
           attempts.graders[grader].push({ mode: 'precise', query: preciseQ, returned: first.rows.length });
           const acceptedNow = filterGradedRows(rows, identity, grader).length;
           if (acceptedNow < 1 && fallbackQ !== preciseQ) {
-            const fallback = await fetchSales(env, { q: fallbackQ, platform: 'ebay', category: 'tcg', graded: true, grader, sort: 'date_desc', limit: graderLimit });
+            const fallback = await fetchSales(env, { q: fallbackQ, platform: 'ebay', graded: true, grader, sort: 'date_desc', limit: graderLimit });
             rates.push(fallback.rate);
             attempts.graders[grader].push({ mode: 'fallback', query: fallbackQ, returned: fallback.rows.length });
             rows = mergeUniqueRows(rows, fallback.rows);
