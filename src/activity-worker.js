@@ -34,15 +34,13 @@ function safeListingUrl(v){try{const u=new URL(String(v||''));return u.protocol=
 function publicSale(row,match){const p=Number(row?.price??row?.sale_price);return{title:String(row?.title||'').slice(0,220),price:Number.isFinite(p)&&p>0?p:null,date:row?.sale_date||row?.sold_at||null,url:safeListingUrl(row?.listing_url),match}}
 function rate(response){const n=x=>{const v=Number(response.headers.get(x));return Number.isFinite(v)?v:null};return{limit:n('X-RateLimit-Limit'),remaining:n('X-RateLimit-Remaining'),reset:n('X-RateLimit-Reset')}}
 function mergeRate(rs){const v=rs.filter(Boolean),a=k=>v.map(x=>x[k]).filter(Number.isFinite);const l=a('limit'),r=a('remaining'),z=a('reset');return{limit:l.length?Math.max(...l):null,remaining:r.length?Math.min(...r):null,reset:z.length?Math.max(...z):null}}
-async function fetchSales(env,q,limit=5){
-  const u=new URL(CARD_API);u.searchParams.set('q',q);u.searchParams.set('platform','ebay');u.searchParams.set('category','tcg');u.searchParams.set('sort','date_desc');u.searchParams.set('limit',String(limit));
+async function fetchSales(env,q,{limit=5,category=false,platform=true}={}){
+  const u=new URL(CARD_API);u.searchParams.set('q',q);if(platform)u.searchParams.set('platform','ebay');if(category)u.searchParams.set('category','tcg');u.searchParams.set('sort','date_desc');u.searchParams.set('limit',String(limit));
   const response=await fetch(u,{headers:{'x-market-api-key':apiKey(env)}});const rt=rate(response);let body=null;try{body=await response.json()}catch{}
   if(!response.ok){const raw=body?.message??body?.error??body?.detail??`The Card API returned HTTP ${response.status}`;return{ok:false,status:response.status,message:typeof raw==='string'?raw:JSON.stringify(raw),rate:rt,rows:[]}}
   return{ok:true,status:response.status,rows:Array.isArray(body?.data)?body.data:[],total:Number.isFinite(Number(body?.pagination?.total))?Number(body.pagination.total):null,rate:rt};
 }
 
-/* Cloudflare Free Workers have a strict per-invocation subrequest ceiling. Keep this route
-   comfortably below it. One request per card is enough for ranking; deep scan remains separate. */
 async function activity(request,env){
   if(!apiKey(env)) return json({error:'THE_CARD_API_KEY is not configured in Cloudflare Runtime variables and secrets.',fatal:true},503);
   let body;try{body=await request.json()}catch{return json({error:'Invalid JSON body.'},400)}
@@ -51,8 +49,8 @@ async function activity(request,env){
   for(const card of cards){
     const plan=queryPlan(card); const q=plan[0]||broadName(card)||coreName(card);
     if(!q||q.length<4){results.push({key:String(card?.key||''),active:false,returned:0,match:0,attempts:[],bestTitle:null,latest:null});continue}
-    const response=await fetchSales(env,q,5);upstreamRequests++;rates.push(response.rate);
-    const attempts=[{q,returned:response.rows.length,total:response.total,status:response.status}];
+    const response=await fetchSales(env,q,{limit:5,category:false,platform:true});upstreamRequests++;rates.push(response.rate);
+    const attempts=[{q,returned:response.rows.length,total:response.total,status:response.status,category:'none',platform:'ebay'}];
     if(!response.ok){if(FATAL_UPSTREAM.has(response.status))return json({error:response.message,upstreamStatus:response.status,fatal:true,checked:results.length,upstreamRequests,returnedRows,rate:mergeRate(rates),results},response.status);results.push({key:String(card?.key||''),active:false,returned:0,match:0,attempts,bestTitle:null,latest:null,error:response.message});continue}
     returnedRows+=response.rows.length;let bestRow=null,bestMatch=0;
     for(const row of response.rows){const s=identityScore(row,card);if(s>bestMatch){bestMatch=s;bestRow=row}}
@@ -64,6 +62,17 @@ async function activity(request,env){
 
 async function probe(env){
   if(!apiKey(env))return json({error:'Runtime secret missing.'},503);
-  const r=await fetchSales(env,'Charizard',3);return json({ok:r.ok,checks:[{q:'Charizard',category:'tcg',ok:r.ok,status:r.status,returned:r.rows.length,total:r.total,titles:r.rows.slice(0,3).map(x=>String(x?.title||'').slice(0,140)),error:r.ok?null:r.message}]},r.ok?200:r.status);
+  const specs=[
+    ['ebay+tcg',{limit:3,category:true,platform:true}],
+    ['ebay-no-category',{limit:3,category:false,platform:true}],
+    ['no-platform-no-category',{limit:3,category:false,platform:false}]
+  ];
+  const checks=[];
+  for(const [mode,opts] of specs){
+    const r=await fetchSales(env,'Charizard',opts);
+    checks.push({q:'Charizard',mode,ok:r.ok,status:r.status,returned:r.rows.length,total:r.total,titles:r.rows.slice(0,3).map(x=>String(x?.title||'').slice(0,140)),error:r.ok?null:r.message});
+    if(!r.ok&&FATAL_UPSTREAM.has(r.status))break;
+  }
+  const ok=checks.every(x=>x.ok);return json({ok,checks},ok?200:(checks.find(x=>!x.ok)?.status||500));
 }
 export default{async fetch(request,env,ctx){const url=new URL(request.url);if(url.pathname==='/api/probe'&&request.method==='GET')return probe(env);if(url.pathname==='/api/activity'&&request.method==='POST')return activity(request,env);return stableWorker.fetch(request,env,ctx)}};
