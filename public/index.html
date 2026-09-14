@@ -12,10 +12,17 @@
     <div>
       <div class="eyebrow">LIVE POKÉMON CARD MARKET</div>
       <h1>Top 100 Pokémon Cards Right Now</h1>
-      <p>Tracked English cards ranked by recent eBay sales activity. Click any card to load its raw market estimate, PSA/BGS/CGC/TAG grade 7+ ladders, sold links and 3-day price graph.</p>
+      <p id="heroText">Tracked English cards ranked by recent eBay sales activity. Click any card to load its raw market estimate, PSA/BGS/CGC/TAG grade 7+ ladders, sold links and 3-day price graph.</p>
     </div>
     <div class="hero-count"><span id="trackedCount">100</span><small>tracked cards</small></div>
   </header>
+
+  <section class="modebar" aria-label="Market mode">
+    <button id="marketMode" class="mode active" type="button">Market View</button>
+    <button id="bargainMode" class="mode" type="button">Graded Bargains</button>
+    <span id="modeHelp">See the hottest tracked cards by recent sales activity.</span>
+    <button id="scanBargains" class="primary hidden" type="button">Scan bargain estimates</button>
+  </section>
 
   <section class="toolbar">
     <input id="search" type="search" placeholder="Search card, set, era or number…">
