@@ -43,10 +43,6 @@ function nameWithoutNumber(card) {
     .trim();
 }
 
-// Activity discovery should be broad enough to find a recent listing.
-// Exact identity is checked after the API responds. These descriptors are
-// frequently abbreviated or omitted in eBay titles, so requiring them in q
-// causes false zero-result searches.
 function broadActivityName(card) {
   return nameWithoutNumber(card)
     .replace(/\b(special illustration rare|illustration rare|alternate art|alt art|full art|secret rare|rainbow rare|rainbow|gold rare|gold|holographic|holo|staff)\b/gi, ' ')
@@ -58,8 +54,6 @@ function broadActivityName(card) {
 function activityQuery(card) {
   const name = broadActivityName(card);
   const number = cardNumber(card);
-  // Do not add NOT-language terms here: activity discovery is intentionally
-  // broad. Language/identity mismatches are rejected locally below.
   return [name, number].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
 }
 
@@ -241,9 +235,7 @@ async function activity(request, env) {
       }
     }
 
-    // With an exact card number, 50+ generally means the number and name match.
-    // Without a number, require a stronger title match to avoid false positives.
-    const threshold = cardNumber(card) ? 50 : 65;
+    const threshold = cardNumber(card) ? 50 : 32;
     const active = !!bestRow && bestMatch >= threshold;
     results.push({
       key: String(card?.key || ''),
