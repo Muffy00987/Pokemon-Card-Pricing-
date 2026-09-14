@@ -12,5 +12,5 @@ jobs:
         with:
           node-version: 22
       - run: node --check public/app.js
-      - run: node --check src/clean-worker.js
+      - run: node --check src/clean-worker-v2.js
       - run: node -e "JSON.parse(require('fs').readFileSync('public/seed.json','utf8')); JSON.parse(require('fs').readFileSync('wrangler.jsonc','utf8').replace(/^\s*\/\/.*$/gm,''))"
