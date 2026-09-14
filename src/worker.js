@@ -6,7 +6,7 @@ function cors(headers = {}) {
   return {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'GET,OPTIONS',
+    'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
     ...headers,
   };
 }
@@ -55,16 +55,31 @@ function usableSetName(setName) {
   return generic.test(s) ? '' : s;
 }
 
-function buildQuery(name, setName, explicitNumber = '') {
+function buildQuery(name, setName, explicitNumber = '', mode = 'precise') {
   const number = extractCardNumber(name, explicitNumber);
   const cardName = nameWithoutHashNumber(name);
-  const set = usableSetName(setName);
+  const set = mode === 'precise' ? usableSetName(setName) : '';
   // Preserve variant words (Alternate Art, Gold, Holo, SIR, Staff, etc.). They are identity data.
+  // Fallback deliberately drops only the set name; identity filtering still runs afterward.
   return [cardName, number, set, '-Japanese', '-Korean', '-Chinese']
     .filter(Boolean)
     .join(' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+function rowKey(row) {
+  return String(row?.id || row?.sale_id || row?.listing_url || `${row?.title || ''}|${salePrice(row) || ''}|${row?.sale_date || row?.sold_at || ''}`);
+}
+
+function mergeUniqueRows(...groups) {
+  const seen = new Set();
+  const out = [];
+  for (const group of groups) for (const row of (group || [])) {
+    const k = rowKey(row);
+    if (!seen.has(k)) { seen.add(k); out.push(row); }
+  }
+  return out;
 }
 
 function median(values) {
@@ -330,6 +345,38 @@ export default {
       return json({ source: 'The Card API', freeMode: true, ...result }, status);
     }
 
+    if (url.pathname === '/api/activity' && request.method === 'POST') {
+      if (!env.THE_CARD_API_KEY) return json({ error: 'THE_CARD_API_KEY is not configured in Runtime variables and secrets.', fatal: true }, 503);
+      let body = null;
+      try { body = await request.json(); } catch { return json({ error: 'Invalid JSON body.' }, 400); }
+      const cards = Array.isArray(body?.cards) ? body.cards.slice(0, 20) : [];
+      if (!cards.length) return json({ error: 'No cards supplied.' }, 400);
+      try {
+        const tasks = cards.map(async card => {
+          const identity = {
+            name: String(card?.name || '').trim(),
+            set: String(card?.set || '').trim(),
+            number: extractCardNumber(card?.name || '', card?.number || ''),
+          };
+          if (!identity.name) return null;
+          const q = buildQuery(identity.name, identity.set, identity.number, 'fallback');
+          const r = await fetchSales(env, { q, platform: 'ebay', category: 'tcg', sort: 'date_desc', limit: 1 });
+          const first = r.rows[0] || null;
+          const match = first ? scoreSale(first, identity) : 0;
+          return {
+            result: { key: String(card?.key || ''), active: !!first && match >= 35, returned: r.rows.length, match, latest: first ? publicSale(first, match) : null },
+            rate: r.rate,
+          };
+        });
+        const settled = (await Promise.all(tasks)).filter(Boolean);
+        const results = settled.map(x => x.result);
+        return json({ ok: true, checked: results.length, maxRows: results.length, rate: mergeRate(settled.map(x => x.rate)), results });
+      } catch (e) {
+        const status = e.status && e.status >= 400 && e.status < 600 ? e.status : 502;
+        return json({ error: e.message || 'Upstream API error', upstreamStatus: e.status || null, fatal: FATAL_UPSTREAM.has(e.status), rate: e.rate || null }, status);
+      }
+    }
+
     if (url.pathname === '/api/card') {
       if (!env.THE_CARD_API_KEY) return json({ error: 'THE_CARD_API_KEY is not configured in Runtime variables and secrets.', code: 'secret_missing', fatal: true }, 503);
       const name = (url.searchParams.get('name') || '').trim();
@@ -340,27 +387,58 @@ export default {
       const rawLimit = clampInt(url.searchParams.get('rawLimit'), 12, 3, 25);
       const graderLimit = clampInt(url.searchParams.get('graderLimit'), 10, 3, 20);
       const identity = { name, set: setName, number };
-      const q = buildQuery(name, setName, number);
+      const preciseQ = buildQuery(name, setName, number, 'precise');
+      const fallbackQ = buildQuery(name, setName, number, 'fallback');
 
       try {
-        // Targeted deep scan: one raw request plus one request per grader.
-        // This intentionally favors better per-card evidence over shallowly scanning all 363 cards.
-        // Fetch raw first so an invalid key/plan/quota error stops before four more grader requests are sent.
-        const rawResult = await fetchSales(env, { q, platform: 'ebay', category: 'tcg', graded: false, sort: 'date_desc', limit: rawLimit });
-        const gradedResults = await Promise.all(
-          GRADERS.map(grader => fetchSales(env, { q, platform: 'ebay', category: 'tcg', graded: true, grader, sort: 'date_desc', limit: graderLimit }))
-        );
-        const graderRows = Object.fromEntries(GRADERS.map((g, i) => [g, gradedResults[i].rows]));
-        const summary = summarize(identity, rawResult.rows, graderRows);
-        const rate = mergeRate([rawResult.rate, ...gradedResults.map(r => r.rate)]);
+        // Two-stage targeted scan. Start precise; if too few accepted matches survive identity
+        // filtering, retry without the set name. Variant words and card number remain intact.
+        // This costs more only when the precise search is thin.
+        const rates = [];
+        const attempts = { raw: [], graders: {} };
+
+        const rawFirst = await fetchSales(env, { q: preciseQ, platform: 'ebay', category: 'tcg', graded: false, sort: 'date_desc', limit: rawLimit });
+        rates.push(rawFirst.rate);
+        let rawRows = rawFirst.rows;
+        attempts.raw.push({ mode: 'precise', query: preciseQ, returned: rawFirst.rows.length });
+        let rawAcceptedNow = filterRawRows(rawRows, identity).length;
+        if (rawAcceptedNow < 2 && fallbackQ !== preciseQ) {
+          const rawFallback = await fetchSales(env, { q: fallbackQ, platform: 'ebay', category: 'tcg', graded: false, sort: 'date_desc', limit: rawLimit });
+          rates.push(rawFallback.rate);
+          attempts.raw.push({ mode: 'fallback', query: fallbackQ, returned: rawFallback.rows.length });
+          rawRows = mergeUniqueRows(rawRows, rawFallback.rows);
+        }
+
+        const graderRows = {};
+        for (const grader of GRADERS) {
+          attempts.graders[grader] = [];
+          const first = await fetchSales(env, { q: preciseQ, platform: 'ebay', category: 'tcg', graded: true, grader, sort: 'date_desc', limit: graderLimit });
+          rates.push(first.rate);
+          let rows = first.rows;
+          attempts.graders[grader].push({ mode: 'precise', query: preciseQ, returned: first.rows.length });
+          const acceptedNow = filterGradedRows(rows, identity, grader).length;
+          if (acceptedNow < 1 && fallbackQ !== preciseQ) {
+            const fallback = await fetchSales(env, { q: fallbackQ, platform: 'ebay', category: 'tcg', graded: true, grader, sort: 'date_desc', limit: graderLimit });
+            rates.push(fallback.rate);
+            attempts.graders[grader].push({ mode: 'fallback', query: fallbackQ, returned: fallback.rows.length });
+            rows = mergeUniqueRows(rows, fallback.rows);
+          }
+          graderRows[grader] = rows;
+        }
+
+        const summary = summarize(identity, rawRows, graderRows);
+        const rate = mergeRate(rates);
+        const maxAttempts = 2;
         return json({
           ok: true,
           card: identity,
-          query: q,
+          query: preciseQ,
+          queries: { precise: preciseQ, fallback: fallbackQ },
+          attempts,
           updatedAt: new Date().toISOString(),
           source: 'The Card API',
           lookback: 'Free tier: maximum 3-day rolling window',
-          limits: { rawLimit, graderLimit, estimatedMaximumRows: rawLimit + graderLimit * GRADERS.length },
+          limits: { rawLimit, graderLimit, estimatedMaximumRows: (rawLimit + graderLimit * GRADERS.length) * maxAttempts },
           rate,
           ...summary,
         });
@@ -372,7 +450,7 @@ export default {
           upstreamStatus: e.status || null,
           fatal: FATAL_UPSTREAM.has(e.status),
           rate: e.rate || null,
-          query: q,
+          query: preciseQ,
         }, status);
       }
     }
