@@ -34,11 +34,11 @@ function safeHttps(v){try{const u=new URL(String(v||''));return u.protocol==='ht
 function publicSale(row,match){const p=Number(row?.price??row?.sale_price);return{title:String(row?.title||'').slice(0,220),price:Number.isFinite(p)&&p>0?p:null,date:row?.sale_date||row?.sold_at||null,url:safeHttps(row?.listing_url),image:safeHttps(row?.image_url),thumbnail:safeHttps(row?.thumbnail_url||row?.image_url),match}}
 function rate(response){const n=x=>{const v=Number(response.headers.get(x));return Number.isFinite(v)?v:null};return{limit:n('X-RateLimit-Limit'),remaining:n('X-RateLimit-Remaining'),reset:n('X-RateLimit-Reset')}}
 function mergeRate(rs){const v=rs.filter(Boolean),a=k=>v.map(x=>x[k]).filter(Number.isFinite);const l=a('limit'),r=a('remaining'),z=a('reset');return{limit:l.length?Math.max(...l):null,remaining:r.length?Math.min(...r):null,reset:z.length?Math.max(...z):null}}
-async function fetchSales(env,q,limit=5){
+async function fetchSales(env,q,limit=1){
   const u=new URL(CARD_API);u.searchParams.set('q',q);u.searchParams.set('platform','ebay');u.searchParams.set('sort','date_desc');u.searchParams.set('limit',String(limit));
   const response=await fetch(u,{headers:{'x-market-api-key':apiKey(env)}});const rt=rate(response);let body=null;try{body=await response.json()}catch{}
   if(!response.ok){const raw=body?.message??body?.error??body?.detail??`The Card API returned HTTP ${response.status}`;return{ok:false,status:response.status,message:typeof raw==='string'?raw:JSON.stringify(raw),rate:rt,rows:[]}}
-  return{ok:true,status:response.status,rows:Array.isArray(body?.data)?body.data:[],total:Number.isFinite(Number(body?.pagination?.total))?Number(body.pagination.total):null,rate:rt};
+  return{ok:true,status:response.status,rows:Array.isArray(body?.data)?body.data:[],total:Number.isFinite(Number(body?.pagination?.total))?Number(body.pagination.total):0,rate:rt};
 }
 async function activity(request,env){
   if(!apiKey(env)) return json({error:'THE_CARD_API_KEY is not configured in Cloudflare Runtime variables and secrets.',fatal:true},503);
@@ -47,24 +47,24 @@ async function activity(request,env){
   const results=[],rates=[];let upstreamRequests=0,returnedRows=0;
   for(const card of cards){
     const plan=queryPlan(card), q=plan[0]||broadName(card)||coreName(card);
-    if(!q||q.length<4){results.push({key:String(card?.key||''),active:false,returned:0,match:0,attempts:[],bestTitle:null,latest:null});continue}
-    const response=await fetchSales(env,q,5);upstreamRequests++;rates.push(response.rate);
+    if(!q||q.length<4){results.push({key:String(card?.key||''),active:false,returned:0,salesTotal:0,match:0,attempts:[],bestTitle:null,latest:null});continue}
+    const response=await fetchSales(env,q,1);upstreamRequests++;rates.push(response.rate);
     const attempts=[{q,returned:response.rows.length,total:response.total,status:response.status,category:'none',platform:'ebay'}];
     if(!response.ok){
       if(FATAL_UPSTREAM.has(response.status))return json({error:response.message,upstreamStatus:response.status,fatal:true,checked:results.length,upstreamRequests,returnedRows,rate:mergeRate(rates),results},response.status);
-      results.push({key:String(card?.key||''),active:false,returned:0,match:0,attempts,bestTitle:null,latest:null,error:response.message});continue;
+      results.push({key:String(card?.key||''),active:false,returned:0,salesTotal:0,match:0,attempts,bestTitle:null,latest:null,error:response.message});continue;
     }
     returnedRows+=response.rows.length;let bestRow=null,bestMatch=0;
     for(const row of response.rows){const s=identityScore(row,card);if(s>bestMatch){bestMatch=s;bestRow=row}}
     const threshold=cardNumber(card)?55:30,active=!!bestRow&&bestMatch>=threshold;
-    results.push({key:String(card?.key||''),active,returned:response.rows.length,match:bestMatch,attempts,bestTitle:bestRow?String(bestRow.title||'').slice(0,180):null,latest:active?publicSale(bestRow,bestMatch):null});
+    results.push({key:String(card?.key||''),active,returned:response.rows.length,salesTotal:response.total||0,match:bestMatch,attempts,bestTitle:bestRow?String(bestRow.title||'').slice(0,180):null,latest:active?publicSale(bestRow,bestMatch):null});
   }
-  return json({ok:true,checked:results.length,upstreamRequests,returnedRows,maxRows:cards.length*5,rate:mergeRate(rates),results});
+  return json({ok:true,checked:results.length,upstreamRequests,returnedRows,maxRows:cards.length,rate:mergeRate(rates),results});
 }
 
 class BodyInjector {
   element(element) {
-    element.append('<script src="/enhancements.js" defer></script><script src="/market-mode.js" defer></script><script src="/image-fallback.js" defer></script><script src="/sales-ui.js" defer></script><script src="/detail-chart-dedupe.js" defer></script>', { html: true });
+    element.append('<script src="/enhancements.js" defer></script><script src="/market-mode.js" defer></script><script src="/image-fallback.js" defer></script><script src="/sales-ui.js" defer></script><script src="/market-dashboard-v2.js" defer></script>', { html: true });
   }
 }
 
