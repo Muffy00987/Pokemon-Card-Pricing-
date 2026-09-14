@@ -64,7 +64,7 @@ async function activity(request,env){
 
 class BodyInjector {
   element(element) {
-    element.append('<script src="/enhancements.js" defer></script><script src="/market-mode.js" defer></script><script src="/image-fallback.js" defer></script><script src="/sales-ui.js" defer></script><script src="/market-dashboard-v2.js" defer></script>', { html: true });
+    element.append('<script src="/enhancements.js" defer></script><script src="/market-mode.js" defer></script><script src="/image-fallback.js" defer></script><script src="/sales-ui.js" defer></script><script src="/market-dashboard-v2.js" defer></script><script src="/dashboard-details-fix.js" defer></script>', { html: true });
   }
 }
 
